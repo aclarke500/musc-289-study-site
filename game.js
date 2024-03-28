@@ -42,7 +42,7 @@ function shuffleArray(array) {
 
 wordsAndCountries = shuffleArray(wordsAndCountries);
 
-
+let wrongWords = [];
 let currentWordIndex = 0;
 
 function setupGame() {
@@ -51,7 +51,7 @@ function setupGame() {
 }
 
 function showWord() {
-  if (currentWordIndex < wordsAndCountries.length) {
+  if (currentWordIndex < wordsAndCountries.length || wrongWords.length) {
       document.getElementById('wordPrompt').textContent = `What country is associated with "${wordsAndCountries[currentWordIndex][0]}"?`;
   } else {
       document.getElementById('wordPrompt').textContent = "Congratulations! You've guessed all the words.";
@@ -71,6 +71,11 @@ function checkAnswer() {
       showWord();
   } else {
       document.getElementById('result').textContent='Wrong!'
+      wrongWords.push(wordsAndCountries[currentWordIndex])
+  }
+  if (currentWordIndex == wordsAndCountries.length -1){
+    wordsAndCountries = wrongWords;
+    currentWordIndex = 0;
   }
 }
 
